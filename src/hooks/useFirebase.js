@@ -89,11 +89,11 @@ const useFirebase = () =>{
             setIsLoading(false);
           });
         return () => unsubscribe;
-    },[])
+    },[auth])
 
     // admin role 
     useEffect(()=>{
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`https://intense-gorge-28690.herokuapp.com/users/${user.email}`)
         .then(res => res.json())
         .then(data => setAdmin(data.admin))
     },[user.email])
@@ -112,7 +112,7 @@ const useFirebase = () =>{
 
     const saveUser = (email, displayName, method) =>{
         const user = {email, displayName };
-        fetch('http://localhost:5000/users', {
+        fetch('https://intense-gorge-28690.herokuapp.com/users', {
             method:method,
             headers:{
                 'content-type':'application/json'

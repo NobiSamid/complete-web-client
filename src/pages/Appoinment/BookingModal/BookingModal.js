@@ -47,7 +47,7 @@ const BookingModal = ({ openModal, handleBookingClose, booking, date, setBooking
             date: date.toLocaleDateString()
         }
         //send to the server
-        fetch('http://localhost:5000/appointments', {
+        fetch('https://intense-gorge-28690.herokuapp.com/appointments', {
             method:'POST',
             headers:{
                 'content-type': 'application/json'

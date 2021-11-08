@@ -8,7 +8,7 @@ const Appoinments = ({date, setDate}) => {
     const [appoinments, setAppoinments] = useState([]);
 
     useEffect(()=>{
-        const url = `http://localhost:5000/appoinments?email=${user.email}&date=${date}`
+        const url = `https://intense-gorge-28690.herokuapp.com/appoinments?email=${user.email}&date=${date.toLocaleDateString()}`
         fetch(url,{
             headers:{
                 'authorization': `Bearer ${token}`
@@ -16,7 +16,7 @@ const Appoinments = ({date, setDate}) => {
         })
         .then(res => res.json())
         .then(data => setAppoinments(data))
-    },[date])
+    },[date, user.email, token])
     console.log(appoinments);
     return (
         <div>
