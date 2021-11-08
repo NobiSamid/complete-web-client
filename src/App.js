@@ -11,6 +11,7 @@ import Login from './pages/login/Login';
 import Register from './pages/login/register/Register';
 import AuthProvider from './context/authprovicer/AuthProvider';
 import PrivateRoute from './pages/login/privateroute/PrivateRoute';
+import Dashboard from './pages/dashboard/dashboard/Dashboard';
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
             <Route path="/register">
               <Register></Register>
             </Route>
+            <PrivateRoute path="/dashboard">
+              <Dashboard></Dashboard>
+            </PrivateRoute>
           </Switch>
         </Router>
       </AuthProvider>

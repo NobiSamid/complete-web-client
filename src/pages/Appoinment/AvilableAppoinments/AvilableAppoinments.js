@@ -1,5 +1,5 @@
-import { Container, Grid, Typography } from '@mui/material';
-import React from 'react';
+import { Alert, Container, Grid, Typography } from '@mui/material';
+import React, { useState } from 'react';
 import Booking from '../booking/Booking';
 
 const bookings =[
@@ -11,37 +11,45 @@ const bookings =[
     },
     {
         id: 2,
-        name:'Teeth Orthodonics',
-        time:'08.00 AM - 09.00AM',
-        space:10
+        name:'Teeth Skelling',
+        time:'07.00 PM - 08.00PM',
+        space:15
     },
     {
         id: 3,
-        name:'Teeth Orthodonics',
-        time:'08.00 AM - 09.00AM',
-        space:10
+        name:'Root canal',
+        time:'09.00 AM - 10.00AM',
+        space:12
     },
     {
         id: 4,
-        name:'Teeth Orthodonics',
-        time:'08.00 AM - 09.00AM',
-        space:10
+        name:'Brace installation',
+        time:'08.00 PM - 09.00PM',
+        space:4
     },
     {
         id: 5,
-        name:'Teeth Orthodonics',
-        time:'08.00 AM - 09.00AM',
-        space:10
+        name:'Cavity treatment',
+        time:'10.00 AM - 11.00AM',
+        space:19
     }
 ]
 
 const AvilableAppoinments = ({date}) => {
+    const [bookingSuccess, setBookingSuccess] = useState(false);
     return (
         <Container>
-            <Typography variant="h4" sx={{ color:'info.main', fontWeight:600}}>avilable appoinments {date.toDateString()}</Typography>
+            <Typography variant="h4" sx={{ color:'info.main', fontWeight:600}}>Avilable appoinments {date.toDateString()}</Typography>
+            {bookingSuccess && <Alert severity="success">Booked successfully</Alert> }
             <Grid container spacing={2}>
                 {
-                    bookings.map(booking =><Booking key={booking.id} date={date} booking={booking}></Booking>)
+                    bookings.map(booking =><Booking 
+                    key={booking.id} 
+                    date={date} 
+                    booking={booking}
+                    setBookingSuccess={setBookingSuccess}
+                    >
+                    </Booking>)
                 }
             </Grid>
         </Container>
