@@ -15,17 +15,29 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
-import Calendar from '../../shared/Calendar';
-import Appoinments from '../Appoinments/Appoinments';
 import { NavLink } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch
+} from "react-router-dom";
+import DashboardHome from '../dashboardhome/DashboardHome';
+import MakeAdmin from '../dashboardhome/MakeAdmin';
+import AddDoctor from '../dashboardhome/AddDoctor';
+import useAuth from '../../../hooks/useAuth';
+import AdminRoute from '../../login/adminroute/AdminRoute';
+
 
 const drawerWidth = 200;
 
 function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [date, setDate] = React.useState(new Date());
+  let { path, url } = useRouteMatch();
+  const {admin} = useAuth();
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -35,9 +47,22 @@ function Dashboard(props) {
     <div>
       <Toolbar />
       <Divider />
-      <NavLink style={{textDecoration:"none", color:'Black'}} to="/appoinment">
+      <Link style={{textDecoration:"none", color:'Black'}} to="/appoinment">
         Go to Appoinment
-      </NavLink>
+      </Link><br/>
+      <Link style={{textDecoration:"none", color:'Black'}} to={`${url}`}>
+        Dashboard
+      </Link><br/>
+      {admin && 
+        <Box>
+          <Link style={{textDecoration:"none", color:'Black'}} to={`${url}/makeAdmin`}>
+            Create Admin
+          </Link><br/>
+          <Link style={{textDecoration:"none", color:'Black'}} to={`${url}/addDoctor`}>
+            Add Doctor
+          </Link>
+        </Box>
+      }
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>
@@ -115,22 +140,17 @@ function Dashboard(props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
         >
         <Toolbar />
-        <Typography paragraph>
-          <Grid container spacing={2}>
-              <Grid item xs={12} md={4}>
-                  <Calendar
-                    date={date}
-                    setDate={setDate}
-                  ></Calendar>
-              </Grid>
-              <Grid item xs={12} md={8}>
-                  <Appoinments
-                    date={date}
-                    setDate={setDate}
-                  ></Appoinments>
-              </Grid>
-          </Grid>
-        </Typography>
+        <Switch>
+        <Route exact path={path}>
+          <DashboardHome></DashboardHome>
+        </Route>
+        <AdminRoute path={`${path}/makeAdmin`}>
+         <MakeAdmin></MakeAdmin>
+        </AdminRoute>
+        <AdminRoute path={`${path}/addDoctor`}>
+         <AddDoctor></AddDoctor>
+        </AdminRoute>
+      </Switch>
       </Box>
     </Box>
   );
