@@ -3,14 +3,16 @@ import { Alert, Button, CircularProgress, Container, Grid, TextField, Typography
 import { NavLink } from 'react-router-dom';
 import login from '../../../images/login.png';
 import useAuth from '../../../hooks/useAuth';
+import { useHistory } from 'react-router-dom';
+
 
 const Register = () => {
 
     const [loginData, setLoginData] = useState({});
-
+    const history = useHistory();
     const { user, registerUser, isLoading, authError } = useAuth();  
 
-    const handleOnChange = e =>{
+    const handleOnBlur = e =>{
         const field = e.target.name;
         const value = e.target.value;
         const newLoginData = {...loginData};
@@ -24,7 +26,7 @@ const Register = () => {
             alert('password didnt match');
             return
         }
-        registerUser(loginData.email, loginData.password);
+        registerUser(loginData.email, loginData.password, loginData.name, history);
         e.preventDefault();
     }
 
@@ -37,12 +39,22 @@ const Register = () => {
                         <form onSubmit={handleLoginSubmit}>
                             <TextField 
                                 id="filled-basic" 
+                                label="User-name" 
+                                type="text" 
+                                variant="filled"
+                                sx={{width:"75%", m: 1}} 
+                                name="name"
+                                onBlur={handleOnBlur}
+
+                            /><br/>
+                            <TextField 
+                                id="filled-basic" 
                                 label="Email" 
                                 type="email" 
                                 variant="filled"
                                 sx={{width:"75%", m: 1}} 
                                 name="email"
-                                onChange={handleOnChange}
+                                onBlur={handleOnBlur}
 
                             /><br/>
                                 
@@ -53,7 +65,7 @@ const Register = () => {
                                 variant="filled"
                                 sx={{width:"75%" , m: 1}} 
                                 name="password"
-                                onChange={handleOnChange}
+                                onBlur={handleOnBlur}
                             /><br/>
                             <TextField 
                                 id="filled-basic" 
@@ -62,12 +74,12 @@ const Register = () => {
                                 variant="filled"
                                 sx={{width:"75%" , m: 1}} 
                                 name="password2"
-                                onChange={handleOnChange}
+                                onBlur={handleOnBlur}
                             /><br/>
                             <NavLink style={{textDecoration:"none"}} to="/login">
                                 <Button variant="text">Already registered? Please, Login</Button>
                             </NavLink><br/>
-                            <Button sx={{width:300, m:1}} type="submit" variant="containerd">Register</Button>
+                            <Button sx={{width:300, m:1}} type="submit" variant="contained">Register</Button>
 
                         </form>
                     }
