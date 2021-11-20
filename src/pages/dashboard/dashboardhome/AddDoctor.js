@@ -28,14 +28,14 @@ const AddDoctor = () => {
         formData.append('image', image);
 
         fetch('http://localhost:5000/doctors', {
+        // fetch('https://intense-gorge-28690.herokuapp.com/doctors', {
             method: 'POST',
             body: formData
         })
             .then(res => res.json())
             .then(data => {
-                if (data.insertedId) {
+                if (data.result.insertedId) {
                     setSuccess("doctor added successfully, congo")
-                    console.log('doc added successfully');
                 }
             })
             .catch(error => {

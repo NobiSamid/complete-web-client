@@ -10,8 +10,9 @@ const Appoinments = ({ date, setDate }) => {
 
     useEffect(() => {
         const url = `http://localhost:5000/appointments?email=${user.email}&date=${date.toLocaleDateString()}`
-        console.log(url);
+        
         // const url = `https://intense-gorge-28690.herokuapp.com/appoinmtents?email=${user.email}&date=${date.toLocaleDateString()}`
+        console.log(url);
         fetch(url, {
             headers: {
                 'authorization': `Bearer ${token}`
