@@ -28,6 +28,7 @@ import MakeAdmin from '../dashboardhome/MakeAdmin';
 import AddDoctor from '../dashboardhome/AddDoctor';
 import useAuth from '../../../hooks/useAuth';
 import AdminRoute from '../../login/adminroute/AdminRoute';
+import Payment from '../Payment/Payment';
 
 
 const drawerWidth = 200;
@@ -53,6 +54,9 @@ function Dashboard(props) {
       <Link style={{textDecoration:"none", color:'Black'}} to={`${url}`}>
         Dashboard
       </Link><br/>
+      <Link style={{textDecoration:"none", color:'Black'}} to={`${url}/pay`}>
+        Pay
+      </Link><br/>
       {admin && 
         <Box>
           <Link style={{textDecoration:"none", color:'Black'}} to={`${url}/makeAdmin`}>
@@ -63,16 +67,6 @@ function Dashboard(props) {
           </Link>
         </Box>
       }
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
     </div>
   );
 
@@ -143,6 +137,9 @@ function Dashboard(props) {
         <Switch>
         <Route exact path={path}>
           <DashboardHome></DashboardHome>
+        </Route>
+        <Route exact path={`${path}/payment/:appointmentId`}>
+          <Payment></Payment>
         </Route>
         <AdminRoute path={`${path}/makeAdmin`}>
          <MakeAdmin></MakeAdmin>

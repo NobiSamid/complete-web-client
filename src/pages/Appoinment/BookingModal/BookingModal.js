@@ -20,7 +20,7 @@ const style = {
 };
 
 const BookingModal = ({ openModal, handleBookingClose, booking, date, setBookingSuccess }) => {
-    const { name, time } = booking;
+    const { name, time, price } = booking;
     const {user} = useAuth();
     const initialInfo = {patientName: user.displayName, email: user.email, phone:''}
     console.log(user.email);
@@ -43,11 +43,13 @@ const BookingModal = ({ openModal, handleBookingClose, booking, date, setBooking
         const appointment = {
             ...bookingInfo, 
             time,
+            price,
             serviceName: name, 
             date: date.toLocaleDateString()
         }
         //send to the server
-        fetch('https://intense-gorge-28690.herokuapp.com/appointments', {
+        fetch('http://localhost:5000/appointments', {
+        // fetch('https://intense-gorge-28690.herokuapp.com/appointments', {
             method:'POST',
             headers:{
                 'content-type': 'application/json'
@@ -83,6 +85,9 @@ const BookingModal = ({ openModal, handleBookingClose, booking, date, setBooking
           <Box sx={style}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
               {name}
+            </Typography>
+            <Typography id="transition-modal-title" variant="h6" component="h2">
+              $ {price}
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                 <form onSubmit={handleBookingSubmit}>

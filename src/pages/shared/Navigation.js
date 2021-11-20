@@ -20,7 +20,7 @@ const Navigation = () => {
     const { user, logout } = useAuth();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    console.log(isMobile);
+    // console.log(isMobile);
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);

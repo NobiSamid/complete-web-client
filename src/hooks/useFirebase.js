@@ -93,7 +93,8 @@ const useFirebase = () =>{
 
     // admin role 
     useEffect(()=>{
-        fetch(`https://intense-gorge-28690.herokuapp.com/users/${user.email}`)
+        fetch(`http://localhost:5000/users/${user.email}`)
+        // fetch(`https://intense-gorge-28690.herokuapp.com/users/${user.email}`)
         .then(res => res.json())
         .then(data => setAdmin(data.admin))
     },[user.email])
