@@ -9,9 +9,9 @@ const Appoinments = ({ date, setDate }) => {
     const [appoinments, setAppoinments] = useState([]);
 
     useEffect(() => {
-        const url = `http://localhost:5000/appointments?email=${user.email}&date=${date.toLocaleDateString()}`
+        // const url = `http://localhost:5000/appointments?email=${user.email}&date=${date.toLocaleDateString()}`
         
-        // const url = `https://intense-gorge-28690.herokuapp.com/appoinmtents?email=${user.email}&date=${date.toLocaleDateString()}`
+        const url = `https://intense-gorge-28690.herokuapp.com/appointments?email=${user.email}&date=${date.toLocaleDateString()}`
         console.log(url);
         fetch(url, {
             headers: {
